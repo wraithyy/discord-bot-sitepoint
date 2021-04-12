@@ -3,4 +3,5 @@ module.exports = {
   Level: require('./level'),
   Sposrals: require('./sposrals'),
   Reset: require('./reset'),
+  Dejve: require('./dejve'),
 };
