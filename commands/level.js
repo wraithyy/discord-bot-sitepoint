@@ -31,7 +31,6 @@ async function tts(message, text) {
     }
     const googleTTS = require('google-tts-api'); // CommonJS
     var connection =  await voiceChannel.join()
-    const intoStream = require('into-stream');
     const url = googleTTS.getAudioUrl(text, {
         lang: 'cs',
         slow: false,
