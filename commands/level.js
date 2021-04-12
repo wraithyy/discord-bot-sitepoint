@@ -11,7 +11,7 @@ module.exports = {
                 msg.channel.send(response.data.name+': '+response.data.cLevel+' ('+response.data.resets+') -- '+response.data.className);
             })
             .catch(error => {
-                msg.channel.send(error)
+                msg.channel.send("Asi to neexistuje")
             });
     },
 };
