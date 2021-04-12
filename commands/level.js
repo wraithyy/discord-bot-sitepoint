@@ -10,15 +10,14 @@ module.exports = {
             .then(response => {
                 msg.channel.send(response.data.name+': '+response.data.cLevel+' ('+response.data.resets+') -- '+response.data.className);
                 if(args[1] && args[1]=='nahlas'){
-                tts(msg, response.data.name+' má level '+response.data.cLevel+' a '+response.data.resets+ ' resů a jeho máma váží'+(Math.random() * (500 - 200) + 200)+' kilo')
+                tts(msg, response.data.name+' má level '+response.data.cLevel+' a '+response.data.resets+ ' resů a jeho máma váží'+(Math.floor(Math.random() * (500 - 200) + 200))+' kilo')
                 }
-            })
-            .catch(error => {
-                msg.channel.send("Asi to neexistuje")
-            });
+            }).catch(console.log);
+
     },
 };
-function tts(message, text) {
+
+async function tts(message, text) {
     if (!message.member.voice.channel)
         return message.channel.send(
             "Musíš být ve Voice channelu lul!"
@@ -30,31 +29,18 @@ function tts(message, text) {
             "I need the permissions to join and speak in your voice channel!"
         );
     }
-    const say = require('say');
-    const FS = require('fs');
-    say.getInstalledVoices(console.log)
-    if (!FS.existsSync('./temp')){
-        FS.mkdirSync('./temp');
-    }
-    const timestamp = new Date().getTime();
-    const soundPath = `./temp/${timestamp}.wav`;
-    say.export(text, null, 1, soundPath, (err) => {
-        if (err) {
-            console.error(err);
-            return;
-        }else{
-            voiceChannel.join().then((connection) => {
-                connection.play(soundPath).on('end', () => {
-                    connection.disconnect();
-                    FS.unlinkSync(soundPath);
-                }).on('error', (err) => {
-                    console.error(err);
-                    connection.disconnect();
-                    FS.unlinkSync(soundPath);
-                });
-            }).catch((err) => {
-                console.error(err);
-            });
-        }
-    });
+    const googleTTS = require('google-tts-api'); // CommonJS
+    var connection =  await voiceChannel.join()
+    const intoStream = require('into-stream');
+    const url = googleTTS.getAudioUrl(text, {
+        lang: 'cs',
+        slow: false,
+        host: 'https://translate.google.com',
+        timeout: 10000,
+    })
+
+    const dispatcher =  connection.play(url,{ volume: 1 }).on("finish", () => {
+        voiceChannel.leave()})
+
+
 }
