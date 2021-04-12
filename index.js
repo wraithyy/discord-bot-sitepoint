@@ -17,8 +17,9 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
+  if(!msg.content.startsWith("!"))return;
   const args = msg.content.split(/ +/);
-  const command = args.shift().toLowerCase();
+  const command = args.shift().toLowerCase().substring(1);
   console.info(`Called command: ${command}`);
 
   if (!bot.commands.has(command)) return;
