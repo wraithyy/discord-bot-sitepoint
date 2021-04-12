@@ -23,7 +23,7 @@ async function play(message) {
     console.log("hraju");
     const song = {url:'https://www.youtube.com/watch?v=IpO7C0iTOu8'};
     var connection = await voiceChannel.join();
-    const dispatcher =  connection.play(ytdl(song.url,){ volume: 2 }).on("finish", () => {
+    const dispatcher =  connection.play(ytdl(song.url,),{ volume: 2 }).on("finish", () => {
         voiceChannel.leave()
     })
 
