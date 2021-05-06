@@ -20,4 +20,4 @@ async function play(message, link) {
     })
 
 }
-export default play;
+module.exports.playYoutube = play;
