@@ -1,4 +1,5 @@
-import playYoutube from "../utils/playYoutube";
+const {playYoutube} = require("../utils/playYoutube");
+
 
 module.exports = {
     name: 'dejve',
