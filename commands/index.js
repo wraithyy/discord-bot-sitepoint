@@ -4,4 +4,5 @@ module.exports = {
   Sposrals: require('./sposrals'),
   Reset: require('./reset'),
   Dejve: require('./dejve'),
+  Hurikan: require('./hurikan'),
 };
